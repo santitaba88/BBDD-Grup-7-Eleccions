@@ -1,4 +1,6 @@
 ## GITHUB
+Primero cree un repositorio en github dandole a NEW FILE y despues metí toda la información dentro de la carpeta creada, 
+luego compartí este repositorio com mis panas del grupo y ellos se unieron con un correo que les llegó.
 
 ## PASOS PREVIOS IMPORTACIÓN DATOS
 
