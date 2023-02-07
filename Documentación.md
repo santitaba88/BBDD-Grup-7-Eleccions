@@ -31,6 +31,39 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 
 ### IMPORTACIÓN VOTOS A NIVEL PROVINCIAL
 
+import mysql.connector
+import datetime
+cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')
+cursor = cnx.cursor()
+
+#OPCION
+with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base de dades/TREBALL EN GRUP A/GRUP A/08021911.DAT") as f:
+    content = f.readlines()
+    for line in content:
+        provinciaid=(line[11:13])
+        candidaturaid=(line[14:20])
+        vots=(line[20:28])
+        candidatsobtinguts=(line[28:33])
+        
+        # Verificar si existe un registro con los mismos valores de provincia_id y candidatura_id
+        select = 'SELECT * FROM vots_candidatures_prov WHERE provincia_id = %s AND candidatura_id = %s'
+        valores_select = (provinciaid, candidaturaid)
+        cursor.execute(select, valores_select)
+        result = cursor.fetchall()
+        
+        # Si no existe un registro con los mismos valores, insertar uno nuevo
+        if not result:
+            insert = 'INSERT INTO vots_candidatures_prov (provincia_id,candidatura_id,vots,candidats_obtinguts) VALUES (%s,%s,%s,%s)'
+            valores_insert = (provinciaid,candidaturaid,vots,candidatsobtinguts)
+            cursor.execute(insert, valores_insert)
+
+    cnx.commit()
+#allibarem recursos
+cursor.close()
+cnx.close()
+
+
+
 ### IMPORTACIÓN VOTOS A NIVEL AUTONOMICA
 
 
