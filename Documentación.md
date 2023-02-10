@@ -127,7 +127,7 @@ SELECT COUNT(nom)
   	FROM persones  
   	WHERE sexe = M;  
 
-\
+
 **2- Muestra todas las votaciones en blanco:**
 
 SELECT SUM(vots_blanc)  
@@ -137,8 +137,8 @@ SELECT SUM(vots_blanc)
   
 SELECT 	nom,  
 	cognom1,  
-	dni\  
-	FROM persones\  
+	dni  
+	FROM persones  
 	WHERE dni IS NOT NULL;  
   
 **4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:**  
