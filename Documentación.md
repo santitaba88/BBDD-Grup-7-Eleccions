@@ -123,9 +123,9 @@ cnx.close()
 ### *SIMPLES*
 **1- Mostra quants homes n’hi han introduïts a la base de dades.**
          
-SELECT COUNT(nom)
-	FROM persones
-	WHERE sexe = M;
+SELECT COUNT(nom)  
+  	FROM persones
+  	WHERE sexe = M;
 
 \
 **2- Muestra todas las votaciones en blanco:**
