@@ -32,6 +32,7 @@ cursor = cnx.cursor()
   
 with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:  
     content = f.readlines()  
+    
     for line in content:  
         eleccioid=(line[0:2])  
         codicandidatura=(line[8:14])  
@@ -89,6 +90,7 @@ cursor = cnx.cursor()
   
 with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base de dades/TREBALL EN GRUP A/GRUP A/08021911.DAT") as f:  
     content = f.readlines()  
+    
     for line in content:  
         provinciaid=(line[11:13])  
         candidaturaid=(line[14:20])  
