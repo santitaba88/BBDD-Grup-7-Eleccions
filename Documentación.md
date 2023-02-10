@@ -40,7 +40,6 @@ with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
         codiacumulacioprovincia=(line[214:220])  
         codiacumulacioca=(line[220:226])  
         codiacumulacionacional=(line[226:232])  
-	  
         insert = 'INSERT INTO candidatures (eleccio_id,codi_candidatura,nom_curt,nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional)   VALUES (%s,%s,%s,%s,%s,%s,%s)'  
         valores = (eleccioid,codicandidatura,nomcurt,nomllarg,codiacumulacioprovincia,codiacumulacioca,codiacumulacionacional)  
         cursor.execute(insert, valores)  
