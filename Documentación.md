@@ -121,19 +121,19 @@ cnx.close()
 
 ## CONSULTAS
 ### *SIMPLES*
-1- Mostra quants homes n’hi han introduïts a la base de dades.
+**1- Mostra quants homes n’hi han introduïts a la base de dades.**
          
 SELECT COUNT(nom)
 	FROM persones
 	WHERE sexe = M;
 
 \
-2- Muestra todas las votaciones en blanco:
+**2- Muestra todas las votaciones en blanco:**
 
 SELECT SUM(vots_blanc)  
 	FROM eleccions_municipals;
   
-3- Muestra el nombre, apellido 1 y el dni de cada persona:  
+**3- Muestra el nombre, apellido 1 y el dni de cada persona:**  
   
 SELECT 	nom,  
 	cognom1,  
@@ -141,14 +141,14 @@ SELECT 	nom,
 	FROM persones\  
 	WHERE dni IS NOT NULL;  
   
-4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:  
+**4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:**  
   
  SELECT nom,  
  	num_escons  
 	FROM persones  
 	WHERE provincia ASC;   
   
-5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.  
+**5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.**  
   
 SELECT UPPER(cognom1), length(cognom1)  
     FROM empleats  
