@@ -22,8 +22,9 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
 
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
-
-**Las 4 primeras lineas sirven para conectar al servidor:
+  
+**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
+ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.
 
 import mysql.connector  
 import datetime  
@@ -51,12 +52,13 @@ cnx.close()
   
 ### IMPORTACIÓN CANDIDATOS Y PERSONAS
 
-**Las 4 primeras lineas sirven para conectar al servidor:  
+**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
+ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.
   
 import mysql.connector  
 import datetime  
 cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
-cursor = cnx.cursor()  
+cursor = cnx.cursor()    
   
 with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:  
     content = f.readlines()  
@@ -80,7 +82,10 @@ cnx.close()
 
 ### IMPORTACIÓN VOTOS A NIVEL PROVINCIAL  
   
-**Las 4 primeras lineas sirven para conectar al servidor:  
+**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
+ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.  
+
+**Aquí nos aparecía un error de duplicar y lo solucionamos haciendo un SELECT seleccionando los campos específicos para ver si se repiten los valores, si se repiten no los añade y si no se repite lo añade a la base de datos.
 
 
 import mysql.connector  
