@@ -59,6 +59,7 @@ cursor = cnx.cursor()
   
 with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:  
     content = f.readlines()  
+    
     for line in content:  
         candidaturaid=(line[15:21])  
         personaid=(line[109:119])  
