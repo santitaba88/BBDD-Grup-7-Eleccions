@@ -25,12 +25,12 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 
 **Las 4 primeras lineas sirven para conectar al servidor:
 
-import mysql.connector
-import datetime
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')
-cursor = cnx.cursor()
+import mysql.connector /
+import datetime /
+cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions') /
+cursor = cnx.cursor() /
 /
-with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
+with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f: /
     content = f.readlines()
     for line in content:
         eleccioid=(line[0:2])
