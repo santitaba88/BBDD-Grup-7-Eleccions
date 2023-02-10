@@ -37,7 +37,6 @@ with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
         codiacumulacioprovincia=(line[214:220])
         codiacumulacioca=(line[220:226])
         codiacumulacionacional=(line[226:232])
-
         insert = 'INSERT INTO candidatures (eleccio_id,codi_candidatura,nom_curt,nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional) VALUES (%s,%s,%s,%s,%s,%s,%s)'
         valores = (eleccioid,codicandidatura,nomcurt,nomllarg,codiacumulacioprovincia,codiacumulacioca,codiacumulacionacional)
         cursor.execute(insert, valores)
@@ -60,15 +59,12 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
         provinciaid=(line[9:11])
         numordre=(line[21:24])
         tipus=(line[24:25])
-
         insert = 'INSERT INTO candidats (candidatura_id,persona_id,provincia_id,num_ordre,tipus) VALUES (%s,%s,%s,%s,%s)'
         valores = (candidaturaid,personaid,provinciaid,numordre,tipus)
         cursor.execute(insert, valores)
     cnx.commit()
-#allibarem recursos
 cursor.close()
 cnx.close()
-#allibarem recursos
 
 
 ### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
@@ -81,8 +77,6 @@ import mysql.connector
 import datetime
 cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')
 cursor = cnx.cursor()
-
-#OPCION
 with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base de dades/TREBALL EN GRUP A/GRUP A/08021911.DAT") as f:
     content = f.readlines()
     for line in content:
@@ -90,19 +84,14 @@ with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base d
         candidaturaid=(line[14:20])
         vots=(line[20:28])
         candidatsobtinguts=(line[28:33])
-        
-        # Verificar si existe un registro con los mismos valores de provincia_id y candidatura_id
         select = 'SELECT * FROM vots_candidatures_prov WHERE provincia_id = %s AND candidatura_id = %s'
         valores_select = (provinciaid, candidaturaid)
         cursor.execute(select, valores_select)
         result = cursor.fetchall()
-        
-        # Si no existe un registro con los mismos valores, insertar uno nuevo
         if not result:
             insert = 'INSERT INTO vots_candidatures_prov (provincia_id,candidatura_id,vots,candidats_obtinguts) VALUES (%s,%s,%s,%s)'
             valores_insert = (provinciaid,candidaturaid,vots,candidatsobtinguts)
             cursor.execute(insert, valores_insert)
-
     cnx.commit()
 #allibarem recursos
 cursor.close()
@@ -116,6 +105,11 @@ cnx.close()
 
 ## CONSULTAS
 ### *SIMPLES*
+1- Mostra quants homes n’hi han introduïts a la base de dades.
+         
+SELECT COUNT(nom)
+	FROM persones
+	WHERE sexe = M;
 
 \
 2- Muestra todas las votaciones en blanco:
@@ -126,9 +120,9 @@ SELECT SUM(vots_blanc)\
 \
 3- Muestra el nombre, apellido 1 y el dni de cada persona:
 
-SELECT nom,\
-        cognom1,\
-	    dni\
+SELECT 	nom,\
+	cognom1,\
+	dni\
 	FROM persones\
 	WHERE dni IS NOT NULL;
 
@@ -136,7 +130,7 @@ SELECT nom,\
 4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:
 
  SELECT nom, \
-	    num_escons \
+ 	num_escons \
 	FROM persones\
 	WHERE provincia ASC; 
 
@@ -157,6 +151,8 @@ WHERE LEFT(cognom1, 1) IN ("J","A","M");
 ### *SUCONSULTAS*
 
 
+
+### *WINDOW FUNCTION*
 
 
 
