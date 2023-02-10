@@ -1,9 +1,9 @@
 ## GITHUB
 Primero cree un repositorio en github dandole a NEW FILE y despues metí toda la información dentro de la carpeta creada, 
 luego compartí este repositorio com mis panas del grupo y ellos se unieron con un correo que les llegó.
-
+  
 ## PASOS PREVIOS IMPORTACIÓN DATOS
-
+  
 Primero tubimos que preparar para poder importar, ejecutamos la comanda $>pip install mysql-connector-python en nuestro powershell para conectar el python con el sistema.
 
 Cuando terminó la instalación reiniciamos nuestro PC y en el VIsual Studio instalamos la extensión de MySQL.
@@ -16,11 +16,11 @@ Luego cada miembro entró a mysql workbench y miró las claves que había que a�
 
 Una vez supimos todos los datos y su ubicación añadimos en nuestros python un bucle for con el nombre de la clave que queremos añadir y al lado en las líneas en las que están ubicadas en el fichero.
 
-
+  
 ### IMPORTACIÓN DE BASE DE DADES
-
+  
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
-
+  
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
 **Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE
@@ -48,11 +48,11 @@ with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
     cnx.commit()  
 cursor.close()  
 cnx.close()  
-
+  
   
 ### IMPORTACIÓN CANDIDATOS Y PERSONAS
 
-**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
+**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE
 ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.**
   
 import mysql.connector  
