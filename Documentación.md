@@ -124,14 +124,14 @@ cnx.close()
 **1- Mostra quants homes n’hi han introduïts a la base de dades.**
          
 SELECT COUNT(nom)  
-  	FROM persones
-  	WHERE sexe = M;
+  	FROM persones  
+  	WHERE sexe = M;  
 
 \
 **2- Muestra todas las votaciones en blanco:**
 
 SELECT SUM(vots_blanc)  
-	FROM eleccions_municipals;
+	FROM eleccions_municipals;  
   
 **3- Muestra el nombre, apellido 1 y el dni de cada persona:**  
   
