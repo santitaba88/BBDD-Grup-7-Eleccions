@@ -77,9 +77,9 @@ cursor.close()
 cnx.close()  
   
 ### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
-
+  
 ### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
-
+  
 ### IMPORTACIÓN VOTOS A NIVEL PROVINCIAL  
   
 **Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
