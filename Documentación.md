@@ -23,7 +23,7 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
-**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
+**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE
 ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.**
 
 import mysql.connector  
