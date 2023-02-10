@@ -125,36 +125,30 @@ SELECT COUNT(nom)
 \
 2- Muestra todas las votaciones en blanco:
 
-SELECT SUM(vots_blanc)\
+SELECT SUM(vots_blanc)  
 	FROM eleccions_municipals;
-
-\
-3- Muestra el nombre, apellido 1 y el dni de cada persona:
-
-SELECT 	nom,\
-	cognom1,\
-	dni\
-	FROM persones\
-	WHERE dni IS NOT NULL;
-
-\
-4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:
-
- SELECT nom, \
- 	num_escons \
-	FROM persones\
-	WHERE provincia ASC; 
-
-\
-5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.
-
-SELECT UPPER(cognom1), length(cognom1)\
-    FROM empleats\
-WHERE LEFT(cognom1, 1) IN ("J","A","M");
-
   
-
-\ 
+3- Muestra el nombre, apellido 1 y el dni de cada persona:  
+  
+SELECT 	nom,  
+	cognom1,  
+	dni\  
+	FROM persones\  
+	WHERE dni IS NOT NULL;  
+  
+4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:  
+  
+ SELECT nom,  
+ 	num_escons  
+	FROM persones  
+	WHERE provincia ASC;   
+  
+5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.  
+  
+SELECT UPPER(cognom1), length(cognom1)  
+    FROM empleats  
+WHERE LEFT(cognom1, 1) IN ("J","A","M");  
+   
 ### *COMBINACIONES*
 
 
