@@ -87,7 +87,6 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
 cursor.close()  
 cnx.close()  
   
-### IMPORTACIÓN VOTOS A NIVEL COMUNITAT AUTÒNOMA
   
 ### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
 import mysql.connector
