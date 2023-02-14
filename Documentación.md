@@ -20,15 +20,15 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 ### IMPORTACIÓN DE BASE DE DADES
 
 ### IMPORTACIÓN DE DADES BÀSIQUES
-use mydb;
-ALTER TABLE eleccions
-	MODIFY COLUMN data INT;
-ALTER TABLE eleccions 
-	DROP COLUMN any; 
-ALTER TABLE eleccions
-	ADD any INT;
-INSERT INTO eleccions (eleccio_id, nom, data, any, mes) 
-VALUES  (1, 'Eleccions 2019',28,2019,04);
+use mydb;  
+ALTER TABLE eleccions  
+	MODIFY COLUMN data INT;  
+ALTER TABLE eleccions   
+	DROP COLUMN any;   
+ALTER TABLE eleccions  
+	ADD any INT;  
+INSERT INTO eleccions (eleccio_id, nom, data, any, mes)   
+VALUES  (1, 'Eleccions 2019',28,2019,04);  
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
   
