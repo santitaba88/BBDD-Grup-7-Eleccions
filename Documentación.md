@@ -18,6 +18,17 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 
   
 ### IMPORTACIÓN DE BASE DE DADES
+
+### IMPORTACIÓN DE DADES BÀSIQUES
+use mydb;
+ALTER TABLE eleccions
+	MODIFY COLUMN data INT;
+ALTER TABLE eleccions 
+	DROP COLUMN any; 
+ALTER TABLE eleccions
+	ADD any INT;
+INSERT INTO eleccions (eleccio_id, nom, data, any, mes) 
+VALUES  (1, 'Eleccions 2019',28,2019,04);
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
   
@@ -76,9 +87,35 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
 cursor.close()  
 cnx.close()  
   
-### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
+### IMPORTACIÓN VOTOS A NIVEL COMUNITAT AUTÒNOMA
   
 ### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
+import mysql.connector
+import datetime
+cnx = mysql.connector.connect(host='10.94.254.35',user='perepi',password='pastanaga', database='mydb')
+cursor = cnx.cursor()
+with open("c:/Users/santi/Desktop/02201911_MESA/06021911.DAT") as f:
+    content = f.readlines()
+    for line in content:
+        eleccioid=(line[0:2])
+        municipiid=(line[11:14])
+        candidaturaid=(line[16:22])
+        vots=(line[22:30])
+        select = 'SELECT * FROM vots_candidatures_mun WHERE eleccio_id = %s AND municipi_id = %s AND candidatura_id = %s'
+        valores_select = (eleccioid, municipiid, candidaturaid)
+        cursor.execute(select, valores_select)
+        result = cursor.fetchall()
+        print(result)
+        # Si no existe un registro con los mismos valores, insertar uno nuevo
+        if not result:
+            insert = 'INSERT INTO vots_candidatures_mun (eleccio_id,municipi_id,candidatura_id,vots) VALUES (%s,%s,%s,%s)'
+            valores = (eleccioid,municipiid,candidaturaid,vots)
+            cursor.execute(insert, valores)
+            print("Registre afeigit")
+        cnx.commit()
+cursor.close()
+cnx.close()
+
   
 ### IMPORTACIÓN VOTOS A NIVEL PROVINCIAL  
   
@@ -163,7 +200,14 @@ WHERE LEFT(cognom1, 1) IN ("J","A","M");
 
 
 ### *WINDOW FUNCTION*
+Calcula la posición de cada candidatura basado en su número de votos de comunidades autónomas de las elecciones del año 2016
 
+SELECT c.nom_llarg, c.vots,
+       RANK() OVER (ORDER BY c.vots DESC) as posició
+FROM candidatures c
+INNER JOIN vots_candidatures_ca c ON c.candidatura_id = v.candidatura_id
+INNER JOIN eleccions e ON e.eleccio_id = c.eleccio_id
+WHERE any = 2016;
 
 
 
