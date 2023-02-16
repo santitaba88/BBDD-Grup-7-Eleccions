@@ -302,9 +302,63 @@ INNER JOIN municipis m ON m.provincia_id =  p.provincia_id;
    
    
 ### *SUCONSULTAS*
-
-
-
+  
+**1- selecciona el nombre y el número de votos municipales de la candidatura que ha recibido el número máximo de votos en la elección = 1:**
+  
+SELECT c.nom_curt,  
+    m.vots  
+FROM candidatures c  
+INNER JOIN  vots_candidatures_mu m ON m.candidatura_id = c.candidatura_id  
+WHERE m.vots = (SELECT MAX(m.vots)  
+                        FROM vots_candidatures_mu  
+		INNER JOIN  eleccions e ON e.eleccio_id = mu.eleccio_id  
+                        WHERE e.eleccio_id = 1);  
+			
+			
+**2- Busca el máximo número de votos obtenidos por una candidatura.**  
+  
+SELECT e.nom, cs.nom, vc.vots  
+	FROM eleccions e  
+INNER JOIN candidatures cs ON cs.eleccio_id = e.eleccio_id  
+INNER JOIN candidats c ON c.candidatura_id =cs.candidatura_id  
+INNER JOIN vots_candidatures_ca vc ON vc.candidatura_id =cs.candidatura_id  
+WHERE vc.vots = (SELECT MAX(vc.vots)  
+                            FROM  vots_candidatures_ca  
+                            WHERE cs.eleccio_id = e.eleccio_id);  
+  
+  
+**3-  Les candidaturas que han obtingut mes de 5000 vots en comunitat autònoma.**  
+  
+SELECT nom_curt,  
+	   nom_llarg  
+FROM candidatures  
+WHERE comunidad_autonoma IN (SELECT comunidad_autonoma   
+FROM WHERE vots > 5000);  
+  
+  
+**4-  Queremos obtener el número total de votos obtenidos por cada candidatura en una determinada elección.**  
+  
+SELECT candidatura_id,  
+     	    SUM(vots) AS total_vots  
+FROM vots_candidatures_com  
+WHERE candidatura_id IN (SELECT candidatura_id   
+   				FROM candidatures   
+   				WHERE eleccio_id = ‘1’ )  
+GROUP BY id_candidatura;  
+  
+  
+**5- Queremos saber la provincia_id candiatura_id y los votos que pertenecen a una determinada provincia.**  
+  
+SELECT provincia_id,  
+  	    candiatura_id,  
+	    vots  
+FROM vots_candidatures_prov  
+WHERE provincia_id IN   
+  (SELECT provincia_id   
+   FROM provincies   
+   WHERE nom = 'Barcelona');  
+			 			
+  			
 ### *WINDOW FUNCTION*
 **Calcula la posición de cada candidatura basado en su número de votos por provincia**  
   - Utilizamos la función de ventana RANK() para asignar una posición a cada candidatura dentro de cada provincia.  
