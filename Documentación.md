@@ -363,16 +363,16 @@ WHERE provincia_id IN
 **Calcula la posición de cada candidatura basado en su número de votos por provincia**  
   - Utilizamos la función de ventana RANK() para asignar una posición a cada candidatura dentro de cada provincia.  
   - La cláusula OVER especifica que la función de ventana se aplica dentro de cada partición definida por la columna "id_provincia" de la tabla "votos_provincias".  
-  
+   
 SELECT p.nom, 
-   c.nom_curt, 
-   vp.vots, 
-   RANK() OVER (PARTITION BY vp.provincia_id ORDER BY vp.vots DESC) AS posicio  
-FROM vots_candidatures_prov vp  
-INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id  
-INNER JOIN provincies p ON p.provincia_id = vp.id_provincia  
-ORDER BY p.nom, posicio  
-  
+   c.nom_curt,  
+   vp.vots,  
+   RANK() OVER (PARTITION BY vp.provincia_id ORDER BY vp.vots DESC) AS posicio    
+FROM vots_candidatures_prov vp   
+INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id   
+INNER JOIN provincies p ON p.provincia_id = vp.id_provincia   
+ORDER BY p.nom, posicio   
+   
 
 
 
