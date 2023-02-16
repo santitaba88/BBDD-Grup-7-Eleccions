@@ -93,8 +93,10 @@ import mysql.connector
 import datetime  
 cnx = mysql.connector.connect(host='10.94.254.35',user='perepi',password='pastanaga', database='mydb')  
 cursor = cnx.cursor()  
+  
 with open("c:/Users/santi/Desktop/02201911_MESA/06021911.DAT") as f:  
     content = f.readlines()  
+      
     for line in content:  
         eleccioid=(line[0:2])  
         municipiid=(line[11:14])  
@@ -105,7 +107,7 @@ with open("c:/Users/santi/Desktop/02201911_MESA/06021911.DAT") as f:
         cursor.execute(select, valores_select)  
         result = cursor.fetchall()  
         print(result)  
-        # Si no existe un registro con los mismos valores, insertar uno nuevo  
+          
         if not result:  
             insert = 'INSERT INTO vots_candidatures_mun (eleccio_id,municipi_id,candidatura_id,vots) VALUES (%s,%s,%s,%s)'  
             valores = (eleccioid,municipiid,candidaturaid,vots)  
