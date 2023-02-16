@@ -83,10 +83,12 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
         insert = 'INSERT INTO candidats (candidatura_id,persona_id,provincia_id,num_ordre,tipus) VALUES (%s,%s,%s,%s,%s)'  
         valores = (candidaturaid,personaid,provinciaid,numordre,tipus)  
         cursor.execute(insert, valores)  
-    cnx.commit()
+    cnx.commit()  
+      
     with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
     content = f.readlines()
     cursor.execute("ALTER TABLE persones MODIFY persona_id INT AUTO_INCREMENT")
+      
     for line in content:
         nom = line[25:50]
         cog1 = line[50:75]
