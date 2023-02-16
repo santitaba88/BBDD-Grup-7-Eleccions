@@ -19,6 +19,8 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
   
 ### IMPORTACIÓN DE BASE DE DADES
 
+
+
 ### IMPORTACIÓN DE DADES BÀSIQUES
 use mydb;  
 ALTER TABLE eleccions  
@@ -31,6 +33,28 @@ INSERT INTO eleccions (eleccio_id, nom, data, any, mes)
 VALUES  (1, 'Eleccions 2019',28,2019,04);  
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
+  
+import mysql.connector  
+import datetime  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')  
+cursor = cnx.cursor()  
+with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
+    content = f.readlines()  
+    for line in content:  
+        if line[9:11] != "99" and line[11:13] == "99":  
+            nom=(line[14:64])  
+            codine=(line[9:11])  
+  
+            insert = 'INSERT INTO comunitats_autonomes (nom, codi_ine) VALUES (%s,%s)'  
+            valores = (nom,codine)  
+            cursor.execute(insert, valores)  
+    print (nom)  
+    cnx.commit()  
+cursor.close()  
+cnx.close()  
+  
+
+
   
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
@@ -56,6 +80,21 @@ with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
         insert = 'INSERT INTO candidatures (eleccio_id,codi_candidatura,nom_curt,nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional)   VALUES (%s,%s,%s,%s,%s,%s,%s)'  
         valores = (eleccioid,codicandidatura,nomcurt,nomllarg,codiacumulacioprovincia,codiacumulacioca,codiacumulacionacional)  
         cursor.execute(insert, valores)  
+    cnx.commit()  
+      
+    with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
+    content = f.readlines()  
+    for line in content:  
+        if line[9:11] != "99" and line[11:13] != "99":  
+            comunitatautid=(line[9:11])  
+            nom=(line[14:64])  
+            codine=(line[11:13])  
+            numescons=(line[149:155])  
+              
+            insert = 'INSERT INTO provincies (comunitat_aut_id, nom, codi_ine, num_escons) VALUES (%s,%s,%s,%s)'  
+            valores = (comunitatautid,nom,codine,numescons)  
+            cursor.execute(insert, valores)  
+        print (comunitatautid)  
     cnx.commit()  
 cursor.close()  
 cnx.close()  
@@ -176,7 +215,7 @@ cnx.close()
 
 ## CONSULTAS
 ### *SIMPLES*
-**1- Mostra quants homes n’hi han introduïts a la base de dades.**
+**1- Muestra cuántos hombres han introducido en la base de datos.**
          
 SELECT COUNT(nom)  
   	FROM persones  
@@ -196,12 +235,13 @@ SELECT 	nom,
 	FROM persones  
 	WHERE dni IS NOT NULL;  
   
-**4- Muestra el numero de escaños de cada provincia. Ordena por provincia ASC:**  
+**4- Muestra el numero de escaños de cada provincia. Ordena por num_escons ASC:**  
   
- SELECT nom,  
- 	num_escons  
-	FROM persones  
-	WHERE provincia ASC;   
+SELECT nom,  
+       num_escons  
+FROM provincia  
+WHERE num_escons ASC;  
+   
   
 **5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.**  
   
@@ -228,7 +268,7 @@ SELECT em.vots_amesos,
   	    em.vots_ruls  
   	FROM eleccions_municipis em  
   	INNER JOIN eleccions e ON e.eleccio_id = em.eleccio_id  
-  	WHERE e.any = 2015;  
+  	WHERE e.any = 2019;  
   
   
 **3- Nombre de los candidatos que participaron en la Elección “1”:**  
@@ -241,14 +281,14 @@ SELECT p.nom
   WHERE e.nom = 'Elección 1';  
     
     
- **4- Muestra el nombre de municipio, nombre de provincia, nombre de comunidad autónoma y la cantidad de votos válidos totales que han obtenido. Ordena por nombre de municipio.**  
+ **4- Muestra el nombre de municipio, nombre de provincia y la cantidad de votos válidos totales que han obtenido. Ordena por nombre de municipio.**  
   
 SELECT m.nom,  
 	    p.nom,  
 	    SUM(em.vots_valids)  
 	FROM eleccions_municipis em  
 	INNER JOIN municipis m ON m.municipi_id =  em.municipi_id  
-INNER JOIN provincies p ON p.provincia_id =  m.provincia_id  
+	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id  
 ORDER BY m.nom;  
   
 **5-  Muestra el número de provincias que hay por comunidad autónoma.**  
@@ -266,14 +306,19 @@ INNER JOIN municipis m ON m.provincia_id =  p.provincia_id;
 
 
 ### *WINDOW FUNCTION*
-**Calcula la posición de cada candidatura basado en su número de votos de comunidades autónomas de las elecciones del año 2016**
+**Calcula la posición de cada candidatura basado en su número de votos por provincia**  
+  - Utilizamos la función de ventana RANK() para asignar una posición a cada candidatura dentro de cada provincia.  
+  - La cláusula OVER especifica que la función de ventana se aplica dentro de cada partición definida por la columna "id_provincia" de la tabla "votos_provincias".  
   
-SELECT c.nom_llarg, c.vots,  
-       RANK() OVER (ORDER BY c.vots DESC) as posició  
-FROM candidatures c  
-INNER JOIN vots_candidatures_ca c ON c.candidatura_id = v.candidatura_id  
-INNER JOIN eleccions e ON e.eleccio_id = c.eleccio_id  
-WHERE any = 2016;  
+SELECT p.nom, 
+   c.nom_curt, 
+   vp.vots, 
+   RANK() OVER (PARTITION BY vp.provincia_id ORDER BY vp.vots DESC) AS posicio  
+FROM vots_candidatures_prov vp  
+INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id  
+INNER JOIN provincies p ON p.provincia_id = vp.id_provincia  
+ORDER BY p.nom, posicio  
+  
 
 
 
