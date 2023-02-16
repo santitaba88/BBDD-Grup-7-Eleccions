@@ -192,10 +192,40 @@ SELECT UPPER(cognom1), length(cognom1)
     FROM empleats  
 WHERE LEFT(cognom1, 1) IN ("J","A","M");  
    
-### *COMBINACIONES*
+### *COMBINACIONES*  
+1- Muestra los códigos de los candidatos con sus votos provinciales  
+  
+SELECT c.codi_candiatura,  
+  	    pr.vots  
+	FROM candidatures c  
+  	INNER JOIN vots_candiatures_prov pr ON pr.candiatura_id = c.candiatura_id  
+  	INNER JOIN vots_candiatures_mun m ON m.candiatura_id = c.candiatura_id;  
+	
+  
 
-
-
+  
+2- Muestra todos los tipos de votos que se obtuvo en las elecciones del año 2019.  
+  
+SELECT em.vots_amesos,  
+  	    em.vots_valids,  
+            em.vots_candiatures,  
+      	    em.vots_blanc,  
+  	    em.vots_ruls  
+  	FROM eleccions_municipis em  
+  	INNER JOIN eleccions e ON e.eleccio_id = em.eleccio_id  
+  	WHERE e.any = 2015;  
+  
+  
+3- Nombre de los candidatos que participaron en la Elección “1”:  
+  
+SELECT p.nom  
+  FROM persones p  
+  INNER JOIN candidats c ON c.candidatura_id = c.candiatura_id  
+  INNER JOIN candidatures cs ON cs.candidatura_id = c.candiatura_id  
+  INNER JOIN eleccions e ON e.eleccio_id = cs.eleccio_id  
+  WHERE e.nom = 'Elección 1';  
+  
+  
 ### *SUCONSULTAS*
 
 
