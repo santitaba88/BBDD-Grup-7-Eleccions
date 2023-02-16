@@ -193,7 +193,7 @@ SELECT UPPER(cognom1), length(cognom1)
 WHERE LEFT(cognom1, 1) IN ("J","A","M");  
    
 ### *COMBINACIONES*  
-*1- Muestra los códigos de los candidatos con sus votos provinciales*  
+**1- Muestra los códigos de los candidatos con sus votos provinciales**  
   
 SELECT c.codi_candiatura,  
   	    pr.vots  
@@ -202,9 +202,7 @@ SELECT c.codi_candiatura,
   	INNER JOIN vots_candiatures_mun m ON m.candiatura_id = c.candiatura_id;  
 	
   
-
-  
-*2- Muestra todos los tipos de votos que se obtuvo en las elecciones del año 2019.*  
+**2- Muestra todos los tipos de votos que se obtuvo en las elecciones del año 2019.**   
   
 SELECT em.vots_amesos,  
   	    em.vots_valids,  
@@ -216,7 +214,7 @@ SELECT em.vots_amesos,
   	WHERE e.any = 2015;  
   
   
-*3- Nombre de los candidatos que participaron en la Elección “1”:*  
+**3- Nombre de los candidatos que participaron en la Elección “1”:**  
   
 SELECT p.nom  
   FROM persones p  
@@ -226,7 +224,7 @@ SELECT p.nom
   WHERE e.nom = 'Elección 1';  
     
     
-  *4- Muestra el nombre de municipio, nombre de provincia, nombre de comunidad autónoma y la cantidad de votos válidos totales que han obtenido. Ordena por nombre de municipio.*  
+ **4- Muestra el nombre de municipio, nombre de provincia, nombre de comunidad autónoma y la cantidad de votos válidos totales que han obtenido. Ordena por nombre de municipio.**  
   
 SELECT m.nom,  
 	    p.nom,  
@@ -236,7 +234,7 @@ SELECT m.nom,
 INNER JOIN provincies p ON p.provincia_id =  m.provincia_id  
 ORDER BY m.nom;  
   
-*5-  Muestra el número de provincias que hay por comunidad autónoma.*  
+**5-  Muestra el número de provincias que hay por comunidad autónoma.**  
   
 SELECT c.nom AS comunitat_autònoma,  
 	    COUNT(p.nom) AS províncies,  
@@ -251,14 +249,14 @@ INNER JOIN municipis m ON m.provincia_id =  p.provincia_id;
 
 
 ### *WINDOW FUNCTION*
-Calcula la posición de cada candidatura basado en su número de votos de comunidades autónomas de las elecciones del año 2016
-
-SELECT c.nom_llarg, c.vots,
-       RANK() OVER (ORDER BY c.vots DESC) as posició
-FROM candidatures c
-INNER JOIN vots_candidatures_ca c ON c.candidatura_id = v.candidatura_id
-INNER JOIN eleccions e ON e.eleccio_id = c.eleccio_id
-WHERE any = 2016;
+**Calcula la posición de cada candidatura basado en su número de votos de comunidades autónomas de las elecciones del año 2016**
+  
+SELECT c.nom_llarg, c.vots,  
+       RANK() OVER (ORDER BY c.vots DESC) as posició  
+FROM candidatures c  
+INNER JOIN vots_candidatures_ca c ON c.candidatura_id = v.candidatura_id  
+INNER JOIN eleccions e ON e.eleccio_id = c.eleccio_id  
+WHERE any = 2016;  
 
 
 
