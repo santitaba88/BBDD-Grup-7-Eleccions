@@ -34,12 +34,12 @@ VALUES  (1, 'Eleccions 2019',28,2019,04);
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
   
-import mysql.connector  
-import datetime  
-cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')  
-cursor = cnx.cursor()  
-  
-with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
+import mysql.connector   
+import datetime   
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
+cursor = cnx.cursor()   
+   
+with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:   
     content = f.readlines()  
     for line in content:  
         if line[9:11] != "99" and line[11:13] == "99":  
