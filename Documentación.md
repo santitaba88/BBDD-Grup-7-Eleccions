@@ -258,11 +258,11 @@ cnx.close()
 
 ## CONSULTAS
 ### *SIMPLES*
-**1- Muestra cuántos hombres han introducido en la base de datos.**
+**1- Muestra todos los campos del sexe "M" en la base de datos.**
          
-SELECT COUNT(nom)  
+SELECT * 
   	FROM persones  
-  	WHERE sexe = M;  
+  	WHERE sexe = 'M';  
 
 
 **2- Muestra todas las votaciones en blanco:**
