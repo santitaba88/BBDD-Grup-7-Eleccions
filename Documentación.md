@@ -48,13 +48,38 @@ with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.
             insert = 'INSERT INTO comunitats_autonomes (nom, codi_ine) VALUES (%s,%s)'  
             valores = (nom,codine)  
             cursor.execute(insert, valores)  
-    print (nom)  
+    cnx.commit()  
+       
+    with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
+    content = f.readlines()  
+    for line in content:  
+        if line[9:11] != "99" and line[11:13] != "99":  
+            comunitatautid=(line[9:11])  
+            nom=(line[14:64])  
+            codine=(line[11:13])  
+            numescons=(line[149:155]) 
+              
+            insert = 'INSERT INTO provincies (comunitat_aut_id, nom, codi_ine, num_escons) VALUES (%s,%s,%s,%s)'  
+            valores = (comunitatautid,nom,codine,numescons)  
+            cursor.execute(insert, valores)    
+    cnx.commit()  
+      
+    with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/05021911.DAT") as f:  
+    content = f.readlines()  
+    for line in content:  
+        if line[16:18] == "99":  
+            nom=(line[18:118])  
+            codine=(line[13:16]) 
+            provinciaid=(line[11:13])  
+            districte=(line[16:18])  
+  
+            insert = 'INSERT INTO municipis (nom, codi_ine, provincia_id, districte) VALUES (%s,%s,%s,%s)'  
+            valores = (nom,codine,provinciaid,districte)  
+            cursor.execute(insert, valores)  
     cnx.commit()  
 cursor.close()  
 cnx.close()  
   
-
-
   
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
@@ -80,22 +105,7 @@ with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:
         insert = 'INSERT INTO candidatures (eleccio_id,codi_candidatura,nom_curt,nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional)   VALUES (%s,%s,%s,%s,%s,%s,%s)'  
         valores = (eleccioid,codicandidatura,nomcurt,nomllarg,codiacumulacioprovincia,codiacumulacioca,codiacumulacionacional)  
         cursor.execute(insert, valores)  
-    cnx.commit()  
-      
-    with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
-    content = f.readlines()  
-    for line in content:  
-        if line[9:11] != "99" and line[11:13] != "99":  
-            comunitatautid=(line[9:11])  
-            nom=(line[14:64])  
-            codine=(line[11:13])  
-            numescons=(line[149:155])  
-              
-            insert = 'INSERT INTO provincies (comunitat_aut_id, nom, codi_ine, num_escons) VALUES (%s,%s,%s,%s)'  
-            valores = (comunitatautid,nom,codine,numescons)  
-            cursor.execute(insert, valores)  
-        print (comunitatautid)  
-    cnx.commit()  
+    cnx.commit()   
 cursor.close()  
 cnx.close()  
   
@@ -206,12 +216,30 @@ with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base d
     cnx.commit()  
 cursor.close()  
 cnx.close()  
-
   
-
-### IMPORTACIÓN VOTOS A NIVEL AUTONOMICA
-
-
+  
+### IMPORTACIÓN VOTOS A NIVEL AUTONOMICA  
+import mysql.connector  
+import datetime  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')  
+cursor = cnx.cursor()  
+with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/08021911.DAT") as f:  
+    content = f.readlines()  
+    for line in content:  
+        if line[9:11] != "99" and line[11:13] != "99":  
+            comunitatautid=(line[9:11])  
+            candidaturaid=(line[14:20])  
+            vots=(line[20:28])  
+              
+            dropkeys= 'ALTER TABLE vots_candidatures_ca DROP PRIMARY KEY; ALTER TABLE vots_candidatures_ca DROP PRIMARY KEY'  
+            insert = 'INSERT INTO vots_candidatures_ca (comunitat_autonoma_id, candidatura_id, vots) VALUES (%s,%s,%s)'  
+            valores = (comunitatautid,candidaturaid,vots)  
+            cursor.execute(dropkeys,insert, valores)  
+        print (comunitatautid)  
+    cnx.commit()  
+cursor.close()  
+cnx.close()  
+  
 
 ## CONSULTAS
 ### *SIMPLES*
