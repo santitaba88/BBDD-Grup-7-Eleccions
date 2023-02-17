@@ -38,6 +38,7 @@ import mysql.connector
 import datetime  
 cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')  
 cursor = cnx.cursor()  
+  
 with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
     content = f.readlines()  
     for line in content:  
