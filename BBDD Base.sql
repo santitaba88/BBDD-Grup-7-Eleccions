@@ -24,7 +24,6 @@ USE `mydb` ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `candidats` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `candidats` (
   `candidat_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `candidatura_id` INT UNSIGNED NOT NULL,
@@ -35,17 +34,11 @@ CREATE TABLE IF NOT EXISTS `candidats` (
   PRIMARY KEY (`candidat_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_candidats_persona_cand` ON `candidats` (`candidatura_id` ASC, `persona_id` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `candidatures`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `candidatures` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `candidatures` (
   `candidatura_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `eleccio_id` TINYINT UNSIGNED NOT NULL,
@@ -58,17 +51,12 @@ CREATE TABLE IF NOT EXISTS `candidatures` (
   PRIMARY KEY (`candidatura_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_eleccions_partits` ON `candidatures` (`eleccio_id` ASC, `codi_candidatura` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `comunitats_autonomes`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `comunitats_autonomes` ;
 
-SHOW WARNINGS;
+
 CREATE TABLE IF NOT EXISTS `comunitats_autonomes` (
   `comunitat_aut_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
@@ -76,17 +64,11 @@ CREATE TABLE IF NOT EXISTS `comunitats_autonomes` (
   PRIMARY KEY (`comunitat_aut_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_com_aut_codi_ine` ON `comunitats_autonomes` (`codi_ine` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `eleccions`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `eleccions` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `eleccions` (
   `eleccio_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
@@ -96,20 +78,11 @@ CREATE TABLE IF NOT EXISTS `eleccions` (
   PRIMARY KEY (`eleccio_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_eleccions_any_mes` ON `eleccions` (`any` ASC, `mes` ASC) VISIBLE;
-
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_eleccions_data` ON `eleccions` (`data` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `eleccions_municipis`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `eleccions_municipis` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `eleccions_municipis` (
   `eleccio_id` TINYINT UNSIGNED NOT NULL,
   `municipi_id` SMALLINT UNSIGNED NOT NULL,
@@ -123,17 +96,11 @@ CREATE TABLE IF NOT EXISTS `eleccions_municipis` (
   PRIMARY KEY (`eleccio_id`, `municipi_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_eleccions_municipis` ON `eleccions_municipis` (`eleccio_id` ASC, `municipi_id` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `municipis`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `municipis` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `municipis` (
   `municipi_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(100) NULL,
@@ -143,17 +110,11 @@ CREATE TABLE IF NOT EXISTS `municipis` (
   PRIMARY KEY (`municipi_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_municipis_codi_ine` ON `municipis` (`codi_ine` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `persones`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `persones` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `persones` (
   `persona_id` INT UNSIGNED NOT NULL,
   `nom` VARCHAR(30) NULL,
@@ -165,17 +126,11 @@ CREATE TABLE IF NOT EXISTS `persones` (
   PRIMARY KEY (`persona_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_candidats_dni` ON `persones` (`dni` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `provincies`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `provincies` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `provincies` (
   `provincia_id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `comunitat_aut_id` TINYINT UNSIGNED NOT NULL,
@@ -185,17 +140,11 @@ CREATE TABLE IF NOT EXISTS `provincies` (
   PRIMARY KEY (`provincia_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-CREATE UNIQUE INDEX `uk_provincies_codi_ine` ON `provincies` (`codi_ine` ASC) VISIBLE;
-
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `vots_candidatures_ca`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `vots_candidatures_ca` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `vots_candidatures_ca` (
   `comunitat_autonoma_id` TINYINT UNSIGNED NOT NULL,
   `candidatura_id` INT UNSIGNED NOT NULL,
@@ -203,14 +152,11 @@ CREATE TABLE IF NOT EXISTS `vots_candidatures_ca` (
   PRIMARY KEY (`comunitat_autonoma_id`, `candidatura_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `vots_candidatures_mun`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `vots_candidatures_mun` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `vots_candidatures_mun` (
   `eleccio_id` TINYINT UNSIGNED NOT NULL,
   `municipi_id` SMALLINT UNSIGNED NOT NULL,
@@ -219,14 +165,11 @@ CREATE TABLE IF NOT EXISTS `vots_candidatures_mun` (
   PRIMARY KEY (`eleccio_id`, `municipi_id`, `candidatura_id`))
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
-
 -- -----------------------------------------------------
 -- Table `vots_candidatures_prov`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `vots_candidatures_prov` ;
 
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `vots_candidatures_prov` (
   `provincia_id` TINYINT UNSIGNED NOT NULL,
   `candidatura_id` INT UNSIGNED NOT NULL,
@@ -234,8 +177,6 @@ CREATE TABLE IF NOT EXISTS `vots_candidatures_prov` (
   `candidats_obtinguts` SMALLINT UNSIGNED NULL COMMENT 'Número de candidats obtinguts per la candidatura',
   PRIMARY KEY (`provincia_id`, `candidatura_id`))
 ENGINE = InnoDB;
-
-SHOW WARNINGS;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
