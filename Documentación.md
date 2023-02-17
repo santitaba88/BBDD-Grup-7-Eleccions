@@ -1,3 +1,19 @@
+## SEGUIMIENTO DEL TRABAJO  
+  
+Todos los miembros del grupo iniciamos sesión en el trello, planificamos todas las tareas y nos repartimos qué tarea hace cada uno.  
+  
+Decidimos hacer dos servidores uno para hacer cualquier tipo de pruebas y el otro para hacer la base de datos de forma limpia.   
+Después de eso el Santi y el Marc Buxadé importaron las estructuras de la base de datos a los dos servidores.   
+Al Marqués lo pusimos al día después de 1 semana sin venir y después estuvo haciendo su tarea de importación de base de datos básicos.  
+El David estaba empezando a estructurar y realizar este documento MarkDown.  
+Por último el Santi estuvo creando el GitHub.  
+  
+El Santi compartió el GitHub a todos los integrantes del grupo y nos explicó cómo creó el repositorio.  
+Después cada uno nos estuvimos informando y realizando el código python para importar la tabla que nos tocaba.  
+Durante el proceso de importación estuvimos bastantes días haciéndolo ya que nos salieron diferentes errores que al final pudimos solucionarlo, mientras el Santi y el Marc Buxade siguieron importando sus tablas el Marc Marques y el David empezaron a hacer consultas básicas y combinadas.  
+  
+Los últimos días acabamos las importaciones solucionando sus respectivos errores, las consultas y el MarkDown, también comprobamos que funcionaba todo correctamente y pasamos todos los datos al servidor del Santi.  
+  
 ## GITHUB
 Primero cree un repositorio en github dandole a NEW FILE y despues metí toda la información dentro de la carpeta creada, 
 luego compartí este repositorio com mis panas del grupo y ellos se unieron con un correo que les llegó.
@@ -384,7 +400,7 @@ FROM vots_candidatures_prov vp
 INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id   
 INNER JOIN provincies p ON p.provincia_id = vp.id_provincia   
 ORDER BY p.nom, posicio;   
-   
+  
 
 
 
