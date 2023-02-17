@@ -91,9 +91,25 @@ with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.
             valores = (nom,codine,provinciaid,districte)  
             cursor.execute(insert, valores)  
     cnx.commit()  
+    with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/05021911.DAT") as f:
+    content = f.readlines()
+    for line in content:
+            municipid=(line[13:16])
+            nummeses=(line[136:141])
+            cens=(line[141:149])
+            votsemesos=((line[216:224])+(line[224:232]))
+            votsvalids=(line[216:224])
+            votscandidatures=(line[205:213])
+            votsblanc=(line[189:197])
+            votsnuls=(line[197:205])
+
+            insert = 'INSERT INTO eleccions_municipis (municipi_id, num_meses, cens, vots_emesos, vots_valids, vots_candidatures, vots_blanc, vots_nuls) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+            valores = (municipid,nummeses,cens,votsemesos,votsvalids,votscandidatures,votsblanc,votsnuls)
+            cursor.execute(insert, valores)
+    cnx.commit()
 cursor.close()  
 cnx.close()  
-  
+ 
   
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
