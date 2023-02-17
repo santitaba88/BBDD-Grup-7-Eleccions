@@ -31,12 +31,8 @@ En el documento python para leer la base de datos que queremos importar creamos 
 Luego cada miembro entró a mysql workbench y miró las claves que había que añadir en su python, una vez que las supimos cada miembro fue a mirar en el word de ficheros.doc las líneas en las que estaban estos datos.
 
 Una vez supimos todos los datos y su ubicación añadimos en nuestros python un bucle for con el nombre de la clave que queremos añadir y al lado en las líneas en las que están ubicadas en el fichero.
-
   
-### IMPORTACIÓN DE BASE DE DADES
-
-
-
+  
 ### IMPORTACIÓN DE DADES BÀSIQUES
 use mydb;  
 ALTER TABLE eleccions  
