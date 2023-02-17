@@ -221,26 +221,8 @@ cnx.close()
   
   
 ### IMPORTACIÓN VOTOS A NIVEL AUTONOMICA  
-import mysql.connector  
-import datetime  
-cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')  
-cursor = cnx.cursor()  
-with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/08021911.DAT") as f:  
-    content = f.readlines()  
-    for line in content:  
-        if line[9:11] != "99" and line[11:13] != "99":  
-            comunitatautid=(line[9:11])  
-            candidaturaid=(line[14:20])  
-            vots=(line[20:28])  
-              
-            dropkeys= 'ALTER TABLE vots_candidatures_ca DROP PRIMARY KEY; ALTER TABLE vots_candidatures_ca DROP PRIMARY KEY'  
-            insert = 'INSERT INTO vots_candidatures_ca (comunitat_autonoma_id, candidatura_id, vots) VALUES (%s,%s,%s)'  
-            valores = (comunitatautid,candidaturaid,vots)  
-            cursor.execute(dropkeys,insert, valores)  
-        print (comunitatautid)  
-    cnx.commit()  
-cursor.close()  
-cnx.close()  
+
+
   
 
 ## CONSULTAS
