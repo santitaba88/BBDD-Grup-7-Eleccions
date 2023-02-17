@@ -268,12 +268,12 @@ SELECT *
 **2- Muestra todas las votaciones en blanco:**
 
 SELECT SUM(vots_blanc)  
-	FROM eleccions_municipals;  
+	FROM eleccions_municipis;  
   
 **3- Muestra el nombre, apellido 1 y el dni de cada persona:**  
   
 SELECT 	nom,  
-	cognom1,  
+	cog1,  
 	dni  
 	FROM persones  
 	WHERE dni IS NOT NULL;  
@@ -282,33 +282,33 @@ SELECT 	nom,
   
 SELECT nom,  
        num_escons  
-FROM provincia  
-WHERE num_escons ASC;  
+FROM provincies  
+ORDER BY num_escons ASC;  
    
   
 **5- Muestra el apellido de los candidatos en mayúsculas y la longitud del apellido de los candidatos donde su apellido comience por J, A o M. Ordena los resultados por apellido de los candidatos.**  
   
-SELECT UPPER(cognom1), length(cognom1)  
-    FROM empleats  
-WHERE LEFT(cognom1, 1) IN ("J","A","M");  
+SELECT UPPER(cog1), length(cog1)  
+    FROM persones  
+WHERE LEFT(cog1, 1) IN ("J","A","M");  
    
 ### *COMBINACIONES*  
-**1- Muestra los códigos de los candidatos con sus votos provinciales**  
+**1- Muestra las ids de los candidatos con sus votos provinciales**  
   
-SELECT c.codi_candiatura,  
+SELECT c.candidatura_id,  
   	    pr.vots  
 	FROM candidatures c  
-  	INNER JOIN vots_candiatures_prov pr ON pr.candiatura_id = c.candiatura_id  
-  	INNER JOIN vots_candiatures_mun m ON m.candiatura_id = c.candiatura_id;  
+  	INNER JOIN vots_candidatures_prov pr ON pr.candidatura_id = c.candidatura_id  
+  	INNER JOIN vots_candidatures_mun m ON m.candidatura_id = c.candidatura_id;  
 	
   
 **2- Muestra todos los tipos de votos que se obtuvo en las elecciones del año 2019.**   
   
-SELECT em.vots_amesos,  
+SELECT em.vots_emesos,  
   	    em.vots_valids,  
-            em.vots_candiatures,  
+            em.vots_candidatures,  
       	    em.vots_blanc,  
-  	    em.vots_ruls  
+  	    em.vots_nuls  
   	FROM eleccions_municipis em  
   	INNER JOIN eleccions e ON e.eleccio_id = em.eleccio_id  
   	WHERE e.any = 2019;  
@@ -326,22 +326,24 @@ SELECT p.nom
     
  **4- Muestra el nombre de municipio, nombre de provincia y la cantidad de votos válidos totales que han obtenido. Ordena por nombre de municipio.**  
   
-SELECT m.nom,  
+ SELECT m.nom,  
 	    p.nom,  
 	    SUM(em.vots_valids)  
 	FROM eleccions_municipis em  
 	INNER JOIN municipis m ON m.municipi_id =  em.municipi_id  
-	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id  
+	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id
+    GROUP BY em.municipi_id
 ORDER BY m.nom;  
   
 **5-  Muestra el número de provincias que hay por comunidad autónoma.**  
   
-SELECT c.nom AS comunitat_autònoma,  
+ SELECT c.nom AS comunitat_autònoma,  
 	    COUNT(p.nom) AS províncies,  
 	    COUNT(m.nom) AS municipis  
 	   FROM comunitats_autonomes c  
 	INNER JOIN provincies p ON p.comunitat_aut_id =  c.comunitat_aut_id  
-INNER JOIN municipis m ON m.provincia_id =  p.provincia_id;  
+	INNER JOIN municipis m ON m.provincia_id =  p.provincia_id
+    GROUP BY c.comunitat_aut_id, p.provincia_id;  
    
    
 ### *SUCONSULTAS*
@@ -351,16 +353,18 @@ INNER JOIN municipis m ON m.provincia_id =  p.provincia_id;
 SELECT c.nom_curt,  
     m.vots  
 FROM candidatures c  
-INNER JOIN  vots_candidatures_mu m ON m.candidatura_id = c.candidatura_id  
+INNER JOIN  vots_candidatures_mun m ON m.candidatura_id = c.candidatura_id  
 WHERE m.vots = (SELECT MAX(m.vots)  
-                        FROM vots_candidatures_mu  
-		INNER JOIN  eleccions e ON e.eleccio_id = mu.eleccio_id  
-                        WHERE e.eleccio_id = 1);  
+                        FROM vots_candidatures_mun  
+		INNER JOIN  eleccions e ON e.eleccio_id = m.eleccio_id  
+                        WHERE e.eleccio_id = 1); 
 			
 			
 **2- Busca el máximo número de votos obtenidos por una candidatura.**  
   
-SELECT e.nom, cs.nom, vc.vots  
+SELECT e.nom, 
+	cs.nom_curt, 
+        vc.vots  
 	FROM eleccions e  
 INNER JOIN candidatures cs ON cs.eleccio_id = e.eleccio_id  
 INNER JOIN candidats c ON c.candidatura_id =cs.candidatura_id  
@@ -379,21 +383,21 @@ WHERE comunidad_autonoma IN (SELECT comunidad_autonoma
 FROM WHERE vots > 5000);  
   
   
-**4-  Queremos obtener el número total de votos obtenidos por cada candidatura en una determinada elección.**  
+**4-  Queremos obtener el número total de votos obtenidos por cada candidatura en una determinada comunidad autonoma.**  
   
 SELECT candidatura_id,  
-     	    SUM(vots) AS total_vots  
-FROM vots_candidatures_com  
+		SUM(vots) AS total_vots  
+FROM vots_candidatures_ca  
 WHERE candidatura_id IN (SELECT candidatura_id   
    				FROM candidatures   
-   				WHERE eleccio_id = ‘1’ )  
-GROUP BY id_candidatura;  
+   				WHERE comunitat_autonoma_id = 1 )  
+GROUP BY candidatura_id;  
   
   
 **5- Queremos saber la provincia_id candiatura_id y los votos que pertenecen a una determinada provincia.**  
   
 SELECT provincia_id,  
-  	    candiatura_id,  
+  	    candidatura_id,  
 	    vots  
 FROM vots_candidatures_prov  
 WHERE provincia_id IN   
@@ -407,13 +411,13 @@ WHERE provincia_id IN
   - Utilizamos la función de ventana RANK() para asignar una posición a cada candidatura dentro de cada provincia.  
   - La cláusula OVER especifica que la función de ventana se aplica dentro de cada partición definida por la columna "id_provincia" de la tabla "votos_provincias".  
    
-SELECT p.nom,  
+   SELECT p.nom,  
    c.nom_curt,  
    vp.vots,  
    RANK() OVER (PARTITION BY vp.provincia_id ORDER BY vp.vots DESC) AS posicio    
 FROM vots_candidatures_prov vp   
-INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id   
-INNER JOIN provincies p ON p.provincia_id = vp.id_provincia   
+INNER JOIN candidatures c ON c.candidatura_id = vp.candidatura_id   
+INNER JOIN provincies p ON p.provincia_id = vp.provincia_id   
 ORDER BY p.nom, posicio;   
   
 
