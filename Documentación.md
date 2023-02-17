@@ -376,12 +376,13 @@ WHERE vc.vots = (SELECT MAX(vc.vots)
   
 **3-  Les candidaturas que han obtingut mes de 5000 vots en comunitat autònoma.**  
   
-SELECT nom_curt,  
-	   nom_llarg  
-FROM candidatures  
-WHERE comunidad_autonoma IN (SELECT comunidad_autonoma   
-FROM WHERE vots > 5000);  
-  
+SELECT c.nom_curt,  
+	   c.nom_llarg  
+FROM candidatures  c
+INNER JOIN vots_candidatures_ca ca ON ca.candidatura_id = c.candiatura_id
+WHERE ca.comunitat_autonoma_id IN (SELECT ca.comunitat_autonoma_id   
+FROM WHERE ca.vots > 5000);
+
   
 **4-  Queremos obtener el número total de votos obtenidos por cada candidatura en una determinada comunidad autonoma.**  
   
