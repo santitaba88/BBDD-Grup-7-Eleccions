@@ -401,7 +401,7 @@ SELECT p.nom,
 FROM vots_candidatures_prov vp   
 INNER JOIN candidatures c ON c.id_candidatura = vp.candidatura_id   
 INNER JOIN provincies p ON p.provincia_id = vp.id_provincia   
-ORDER BY p.nom, posicio   
+ORDER BY p.nom, posicio;   
    
 
 
