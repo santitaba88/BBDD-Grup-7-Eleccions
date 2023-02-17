@@ -41,6 +41,7 @@ cursor = cnx.cursor()
    
 with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:   
     content = f.readlines()  
+      
     for line in content:  
         if line[9:11] != "99" and line[11:13] == "99":  
             nom=(line[14:64])  
