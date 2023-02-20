@@ -431,6 +431,7 @@ WHERE provincia_id IN
    SELECT p.nom,  
    c.nom_curt,  
    vp.vots,  
+     
    RANK() OVER (PARTITION BY vp.provincia_id ORDER BY vp.vots DESC) AS posicio    
 FROM vots_candidatures_prov vp   
 INNER JOIN candidatures c ON c.candidatura_id = vp.candidatura_id   
