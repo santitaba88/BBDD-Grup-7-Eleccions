@@ -426,7 +426,7 @@ WHERE provincia_id IN
 ### *WINDOW FUNCTION*
 **Calcula la posición de cada candidatura basado en su número de votos por provincia**  
   - Utilizamos la función de ventana RANK() para asignar una posición a cada candidatura dentro de cada provincia.  
-  - La cláusula OVER especifica que la función de ventana se aplica dentro de cada partición definida por la columna "id_provincia" de la tabla "votos_provincias".  
+  - La cláusula OVER especifica que la función de ventana se aplica dentro de cada partición definida por la columna "provincia_id" de la tabla "vots_candidatures_prov".  
    
    SELECT p.nom,  
    c.nom_curt,  
