@@ -46,7 +46,7 @@ VALUES  (1, 'Eleccions 2019',28,2019,04);
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
 
-**Este codigo lo que hace es leer los datos del archivo 02021911.DAT.   
+**Este codigo lo que hace es leer los datos del archivo 07021911.DAT.   
 Realiza un IF para verificar si la línea cumple con las condiciones de que los campos 9-11 no son "99" y los campos 11-13 son "99", si cumple con la condición por cada línea del archivo el script extraerá los campos de la línea (nom, codi_ine) y los añadirá a la tabla 'comunitats_autonomes' pero antes de la inserción, se utiliza la consulta ALTER TABLE para eliminar las claves primarias de la tabla.  
 Y finalizamos en codigo con un commit para guardar los cambios.**  
   
@@ -135,7 +135,7 @@ Y finalizamos en codigo con un commit para guardar los cambios.**
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')   
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()  
   
 with open("c:/Users/santi/Desktop/02201911_MESA/03021911.DAT") as f:  
@@ -165,7 +165,7 @@ Y finalizamos en codigo con un commit para guardar los cambios.**
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='mydb')  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()    
   
 with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:  
@@ -216,7 +216,7 @@ Y finalizamos en codigo con un commit para guardar los cambios.**
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.254.35',user='perepi',password='pastanaga', database='mydb')  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()  
   
 with open("c:/Users/santi/Desktop/02201911_MESA/06021911.DAT") as f:  
@@ -253,7 +253,7 @@ Y finalizamos en codigo con un commit para guardar los cambios.**
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()  
   
 with open("C:/Users/David UBE/OneDrive - Sa Palomera/Escritorio/cole/ASIX/Base de dades/TREBALL EN GRUP A/GRUP A/08021911.DAT") as f:  
@@ -286,7 +286,7 @@ Y finalizamos en codigo con un commit para guardar los cambios.**
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
+cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()  
   
 with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/08021911.DAT") as f:  
