@@ -45,12 +45,15 @@ INSERT INTO eleccions (eleccio_id, nom, data, any, mes)
 VALUES  (1, 'Eleccions 2019',28,2019,04);  
   
 ### IMPORTACIÓN COMUNIDADES AUTONOMAS, PROVINCIAS Y MUNICIPIOS
+
+**Este codigo lo que hace es leer los datos del archivo 02021911.DAT.   
+Realiza un IF para verificar si la línea cumple con las condiciones de que los campos 9-11 no son "99" y los campos 11-13 son "99", si cumple con la condición por cada línea del archivo el script extraerá los campos de la línea (nom, codi_ine) y los añadirá a la tabla 'comunitats_autonomes' pero antes de la inserción, se utiliza la consulta ALTER TABLE para eliminar las claves primarias de la tabla.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
   
 import mysql.connector   
 import datetime   
 cnx = mysql.connector.connect(host='192.168.56.103',user='perepi',password='pastanaga', database='mydb')   
 cursor = cnx.cursor()   
-   
 with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:   
     content = f.readlines()  
       
@@ -63,7 +66,11 @@ with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.
             valores = (nom,codine)  
             cursor.execute(insert, valores)  
     cnx.commit()  
-       
+
+**Este codigo lo que hace es leer los datos del archivo 07021911.DAT.  
+Realiza un IF para verificar si la línea cumple con las condiciones de los campos 9-11 y 11-13 no son "99", si cumple con la condición por cada línea del archivo el script extraerá los campos de la línea (comunitat_aut_id, nom, codi_ine, num_escons) y los añadirá a la tabla 'provincies'.
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+      
     with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.DAT") as f:  
     content = f.readlines()  
     for line in content:  
@@ -77,7 +84,11 @@ with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.
             valores = (comunitatautid,nom,codine,numescons)  
             cursor.execute(insert, valores)    
     cnx.commit()  
-      
+
+**Este codigo lo que hace es leer los datos del archivo 05021911.DAT.  
+Realiza un IF para verificar si la línea cumple con las condiciones de que los campos 16-18 es igual a "99", si cumple con la condición por cada línea del archivo el script extraerá los campos de la línea (nom, codi_ine, provincia_id, districte) y los añadirá a la tabla 'municipis'.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+         
     with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/05021911.DAT") as f:  
     content = f.readlines()  
     for line in content:  
@@ -91,6 +102,11 @@ with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/07021911.
             valores = (nom,codine,provinciaid,districte)  
             cursor.execute(insert, valores)  
     cnx.commit()  
+
+**Este codigo lo que hace es leer los datos del archivo 05021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (municipi_id, num_meses, cens, vots_emesos, vots_valids, vots_candidatures, vots_blanc, vots_nuls) y se añadirá a la tabla 'eleccions_municipis'.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+         
     with open("D:/Escritorio/INSTITUTO/TREBALL BASE DE DADES/02201911_MESA/05021911.DAT") as f:
     content = f.readlines()
     for line in content:
@@ -113,9 +129,10 @@ cnx.close()
   
 ### IMPORTACIÓN DE PARTIDOS POLITICOS/CANDIDATURAS
   
-**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE
-ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.**
-
+**Este codigo lo que hace es leer los datos del archivo 03021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (eleccio_id,codi_candidatura,nom_curt,nom_llarg, codi_acumulacio_provincia, codi_acumulacio_ca, codi_acumulario_nacional) y se realiza un INSERT para añadir los valores extraidos anteriormente a la tabla 'candidatures'.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+  
 import mysql.connector  
 import datetime  
 cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')   
@@ -141,13 +158,14 @@ cnx.close()
   
   
 ### IMPORTACIÓN CANDIDATOS Y PERSONAS
-
-**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE
-ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.**
+  
+**Este codigo lo que hace es leer los datos del archivo 04021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (candidatura_id,persona_id,provincia_id,num_ordre,tipus) y se realiza un INSERT para añadir los valores extraidos anteriormente a la tabla 'candidats'.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
   
 import mysql.connector  
 import datetime  
-cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
+cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='mydb')  
 cursor = cnx.cursor()    
   
 with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:  
@@ -163,7 +181,12 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
         valores = (candidaturaid,personaid,provinciaid,numordre,tipus)  
         cursor.execute(insert, valores)  
     cnx.commit()  
-      
+
+**Este codigo lo que hace es leer los datos del archivo 04021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (nom, cog1, cog2, sexe, dni) y se realiza un INSERT para añadir los valores extraidos anteriormente.  
+Se ejecuta la consulta ALTER TABLE para modificar la tabla 'persones' y establecer la columna 'persona_id' como una clave primaria autoincrementable.  
+Y finalizamos en codigo con un commit para guardar los cambios.**
+
     with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
     content = f.readlines()
     cursor.execute("ALTER TABLE persones MODIFY persona_id INT AUTO_INCREMENT")
@@ -173,7 +196,6 @@ with open("c:/Users/santi/Desktop/02201911_MESA/04021911.DAT") as f:
         cog1 = line[50:75]
         cog2 = line[75:100]
         sexe = line[100:101]
-        #datanaixement = line[101:109]
         dni = line[109:119]
         
         insert = 'INSERT INTO persones (nom, cog1, cog2, sexe, dni) VALUES (%s, %s, %s, %s, %s)'
@@ -184,7 +206,14 @@ cursor.close()
 cnx.close()  
   
   
-### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL
+### IMPORTACIÓN VOTOS A NIVEL MUNICIPAL  
+  
+**Este codigo lo que hace es leer los datos del archivo 06021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (eleccioid, municipiid, candidaturaid, vots) y realiza  
+una consulta SELECT en la tabla 'vots_candidatures_mun' para verificar si ya existe un registro  con los mismos valores de eleccioid, municipiid y candidaturaid.  
+Si no encuentra ningún registro duplicado hará la insercción de los datos de esa línia, en caso contrario no lo insertará.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+  
 import mysql.connector  
 import datetime  
 cnx = mysql.connector.connect(host='10.94.254.35',user='perepi',password='pastanaga', database='mydb')  
@@ -216,11 +245,12 @@ cnx.close()
   
 ### IMPORTACIÓN VOTOS A NIVEL PROVINCIAL  
   
-**Las 4 primeras lineas sirven para conectar al servidor, despues ponemos la ruta donde está ubicado el fichero que queremos extraer los datos, con el FOR LINE  
-ponemos el nombre de los campos seleccionado las posiciones en la que están sus datos y por ultimo hacemos un insert para añadir los valores a la tabla de la base de datos.**    
+**Este codigo lo que hace es leer los datos del archivo 08021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (provincia_id,candidatura_id,vots,candidats_obtinguts) y realiza  
+una consulta SELECT en la tabla 'vots_candidatures_prov' para verificar si ya existe un registro  con los mismos valores de provinciaid y candidaturaid.  
+Si no encuentra ningún registro duplicado hará la insercción de los datos de esa línia, en caso contrario no lo insertará.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
   
-**Aquí nos aparecía un error de duplicar y lo solucionamos haciendo un SELECT seleccionando los campos específicos para ver si se repiten los valores, si se repiten no los añade y si no se repite lo añade a la base de datos.**  
-   
 import mysql.connector  
 import datetime  
 cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
@@ -248,6 +278,12 @@ cnx.close()
   
   
 ### IMPORTACIÓN VOTOS A NIVEL AUTONOMICA  
+
+**Este codigo lo que hace es leer los datos del archivo 08021911.DAT.  
+Luego para cada línea del archivo el script extrae los campos de la línea (comunitat_autonoma_id, candidatura_id, vots) y realiza un IF para verificar si la línea cumple con las condiciones de que los campos 9-11 y 11-13 no son "99". 
+Si cumple con la condición se añadirá a la tabla 'vots_candidatures_ca' pero antes de la inserción, se utiliza la consulta ALTER TABLE para eliminar las claves primarias de la tabla.  
+Y finalizamos en codigo con un commit para guardar los cambios.**  
+  
 import mysql.connector  
 import datetime  
 cnx = mysql.connector.connect(host='10.94.255.159',user='perepi',password='pastanaga', database='eleccions')  
