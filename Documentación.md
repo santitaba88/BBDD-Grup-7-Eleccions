@@ -36,7 +36,9 @@ Una vez supimos todos los datos y su ubicación añadimos en nuestros python un 
 ### IMPORTACIÓN DE DADES BÀSIQUES
 use mydb;  
 ALTER TABLE eleccions  
-	MODIFY COLUMN data INT;  
+	MODIFY COLUMN data INT;
+ALTER TABLE eleccions  
+	MODIFY COLUMN mes INT;
 ALTER TABLE eleccions   
 	DROP COLUMN any;   
 ALTER TABLE eleccions  
@@ -310,7 +312,7 @@ cnx.close()
 
 ## CONSULTAS
 ### *SIMPLES*
-**1- Muestra todos los campos del sexe "M" en la base de datos.**
+**1- Muestra todos los campos del sexe "M" en la tabla 'persones'.**
          
 SELECT * 
   	FROM persones  
@@ -385,7 +387,7 @@ SELECT p.nom
 	INNER JOIN municipis m ON m.municipi_id =  em.municipi_id  
 	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id
     GROUP BY em.municipi_id
-ORDER BY m.nom;  
+    ORDER BY m.nom;  
   
 **5-  Muestra el número de provincias que hay por comunidad autónoma.**  
   
