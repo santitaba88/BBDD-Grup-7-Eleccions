@@ -383,8 +383,8 @@ SELECT p.nom
 	    SUM(em.vots_valids)  
 	FROM eleccions_municipis em  
 	INNER JOIN municipis m ON m.municipi_id =  em.municipi_id  
-	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id
-    GROUP BY em.municipi_id
+	INNER JOIN provincies p ON p.provincia_id =  m.provincia_id  
+    GROUP BY em.municipi_id  
     ORDER BY m.nom;  
   
 **5-  Muestra el número de provincias y municipios que hay por comunidad autónoma.**  
