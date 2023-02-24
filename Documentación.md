@@ -358,9 +358,7 @@ SELECT c.candidatura_id,
   
 **2- Muestra todos los tipos de votos que se obtuvo en las elecciones del año 2019.**   
   
-SELECT em.vots_emesos,  
-  	    em.vots_valids,  
-            em.vots_candidatures,  
+SELECT  em.vots_valids,  
       	    em.vots_blanc,  
   	    em.vots_nuls  
   	FROM eleccions_municipis em  
@@ -389,7 +387,7 @@ SELECT p.nom
     GROUP BY em.municipi_id
     ORDER BY m.nom;  
   
-**5-  Muestra el número de provincias que hay por comunidad autónoma.**  
+**5-  Muestra el número de provincias y municipios que hay por comunidad autónoma.**  
   
  SELECT c.nom AS comunitat_autònoma,  
 	    COUNT(p.nom) AS províncies,  
