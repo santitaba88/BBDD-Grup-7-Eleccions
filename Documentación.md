@@ -324,13 +324,11 @@ SELECT *
 SELECT SUM(vots_blanc)  
 	FROM eleccions_municipis;  
   
-**3- Muestra el nombre, apellido 1 y el dni de cada persona:**  
+**3- Muestra el nombre, apellido 1 de cada persona:**  
   
 SELECT 	nom,  
-	cog1,  
-	dni  
-	FROM persones  
-	WHERE dni IS NOT NULL;  
+	cog1  
+	FROM persones;  
   
 **4- Muestra el numero de escaños de cada provincia. Ordena por num_escons ASC:**  
   
